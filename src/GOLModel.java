@@ -4,7 +4,7 @@ public class GOLModel {
 
     private int sizeGrid;
 
-    private int[][] theGrid;
+    public int[][] theGrid;
 
     private int[][] aGridOneCell = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -12,6 +12,30 @@ public class GOLModel {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    };
+
+    private int[][] aGridThreeCells = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+            {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    };
+
+    private int[][] aGridSquare = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+            {0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -76,17 +100,28 @@ public class GOLModel {
         }
         testBlank.nextTurn(this.theGrid, 5, 5);
         if (!testBlank.equals(new GOLModel())){
-            System.out.println("Incorrect changed an empty model")
+            System.out.println("Incorrect changed an empty model");
         }
 
         GOLModel test1= new GOLModel(10, aGridOneCell);
-        if (testBlank.equals(new GOLModel())){
+        if (test1.equals(new GOLModel())){
             System.out.println("Incorrect did not make unique grid with parameters");
         }
         test1.nextTurn(this.theGrid,10,10);
-        if (!testBlank.equals(new GOLModel())){
+        if (!test1.equals(new GOLModel())){
             System.out.println("Incorrect did not kill only cell");
         }
+
+        GOLModel test2 = new GOLModel(10, aGridThreeCells);
+        if (test2.equals(new GOLModel())) {
+            System.out.println("Incorrect did not make unique grid with parameters");
+        }
+        test2.nextTurn(this.theGrid,10,10);
+        if (!test2.equals(new GOLModel(10,aGridSquare))){
+            System.out.println("Incorrect did not follow rules of the game");
+        }
+
+
 
     }
 

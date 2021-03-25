@@ -1,7 +1,8 @@
-public class View {
-    public View(){}
+public class Controller {
+    private GOLModel model;
+    private View view;
 
-    public void registerModel(GOLModel model){
+    public Controller(){
     }
 
     public static void main(String[] args){
@@ -21,9 +22,7 @@ public class View {
         GOLModel testmodel2 = new GOLModel(10, aGridOneCell);
         View testview = new View();
         testview.registerModel(testmodel1);
-        testmodel1.nextTurn();
+        Controller testctrl = new Controller();
 
-        testview.registerModel(testmodel2);
-        testmodel2.nextTurn();
     }
 }

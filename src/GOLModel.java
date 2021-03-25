@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class GOLModel {
 
     private int counter;
@@ -6,41 +8,6 @@ public class GOLModel {
 
     public int[][] theGrid;
 
-    private int[][] aGridOneCell = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    };
-
-    private int[][] aGridThreeCells = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
-            {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    };
-
-    private int[][] aGridSquare = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
-            {0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    };
 
     public GOLModel(){
        this.sizeGrid=5;
@@ -73,9 +40,8 @@ public class GOLModel {
         };
     }
 
-    void nextTurn(int grid[][], int M, int N){
-        int[][] next = new int[M][M];
-
+    void nextTurn(){
+        /*int[][] next = new int[M][M];
         for (int l = 1; 1<M-1;l++){
             for (int m=1;m<N-1;m++){
                 int activatedNeighbors = 0;
@@ -90,15 +56,51 @@ public class GOLModel {
                     next[1][m]=1;
                 }
             }
-        }
+        }*/
     }
 
-    public void main(String[] args){
+    public static void main(String[] args){
+        int[][] aGridOneCell = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        };
+
+        int[][] aGridThreeCells = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        };
+
+        int[][] aGridSquare = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        };
+
         GOLModel testBlank = new GOLModel();
         if (!testBlank.equals(new GOLModel())) {
             System.out.println("Did not make accurate new model");
         }
-        testBlank.nextTurn(this.theGrid, 5, 5);
+        testBlank.nextTurn();
         if (!testBlank.equals(new GOLModel())){
             System.out.println("Incorrect changed an empty model");
         }
@@ -107,7 +109,8 @@ public class GOLModel {
         if (test1.equals(new GOLModel())){
             System.out.println("Incorrect did not make unique grid with parameters");
         }
-        test1.nextTurn(this.theGrid,10,10);
+
+        test1.nextTurn();
         if (!test1.equals(new GOLModel())){
             System.out.println("Incorrect did not kill only cell");
         }
@@ -116,7 +119,7 @@ public class GOLModel {
         if (test2.equals(new GOLModel())) {
             System.out.println("Incorrect did not make unique grid with parameters");
         }
-        test2.nextTurn(this.theGrid,10,10);
+        test2.nextTurn();
         if (!test2.equals(new GOLModel(10,aGridSquare))){
             System.out.println("Incorrect did not follow rules of the game");
         }

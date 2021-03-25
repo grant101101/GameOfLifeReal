@@ -2,15 +2,38 @@ public class GOLModel {
 
     private int counter;
 
+    private int sizeGrid;
+
     private int[][] theGrid;
 
+    private int[][] aGridOneCell = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    };
+
     public GOLModel(){
-
-
-
+       this.sizeGrid=5;
+       this.theGrid= new int[][]{{0, 0, 0, 0, 0},
+               {0, 0, 0, 0, 0},
+               {0, 0, 0, 0, 0},
+               {0, 0, 0, 0, 0},
+               {0, 0, 0, 0, 0}
+       };
     }
 
-    public static void initGrid(String[] args) {
+    public GOLModel(int sizeGrid, int[][] theGrid){
+        this.sizeGrid=sizeGrid;
+        this.theGrid=theGrid;
+    }
+
+    public void initGrid(String[] args) {
         int M = 10, N = 10;
 
         int[][] theGrid = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -26,7 +49,7 @@ public class GOLModel {
         };
     }
 
-    static void nextTurn(int grid[][], int M, int N){
+    void nextTurn(int grid[][], int M, int N){
         int[][] next = new int[M][M];
 
         for (int l = 1; 1<M-1;l++){
@@ -45,5 +68,27 @@ public class GOLModel {
             }
         }
     }
+
+    public void main(String[] args){
+        GOLModel testBlank = new GOLModel();
+        if (!testBlank.equals(new GOLModel())) {
+            System.out.println("Did not make accurate new model");
+        }
+        testBlank.nextTurn(this.theGrid, 5, 5);
+        if (!testBlank.equals(new GOLModel())){
+            System.out.println("Incorrect changed an empty model")
+        }
+
+        GOLModel test1= new GOLModel(10, aGridOneCell);
+        if (testBlank.equals(new GOLModel())){
+            System.out.println("Incorrect did not make unique grid with parameters");
+        }
+        test1.nextTurn(this.theGrid,10,10);
+        if (!testBlank.equals(new GOLModel())){
+            System.out.println("Incorrect did not kill only cell");
+        }
+
+    }
+
 
 }

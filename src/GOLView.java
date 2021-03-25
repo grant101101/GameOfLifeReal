@@ -3,26 +3,25 @@ import javax.swing.*;
 //import java.util.*;
 
 public class GOLView {
-        public mainGOLView (){
+        public GOLView(){
 // create objects (buttons, textfields, and speed slider
-                private JFrame frame;
-                private JPanel panel;
-                private JButton startstop;
-                private JButton backward;
-                private JButton forward;
-                private JTextField turnnumber;
-                private JSlider speed;
+                JFrame frame;
+                JPanel panel;
+                JButton startstop;
+                JButton backward;
+                JButton forward;
+                JTextField turnnumber;
+                JSlider speed;
                 //private GameBoard gol_gameboard;
-                static final int speed_min = 1;
-                static final int speed_max = 10;
-                static final int speed_init = 5;
+                final int speed_min = 1;
+                final int speed_max = 10;
+                final int speed_init = 5;
 
                 frame = new JFrame();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setSize(500, 120);
                 frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
 
                 // Create actual UI
                 startstop = new JButton("Start/Stop");
@@ -38,6 +37,12 @@ public class GOLView {
                 panel.add(forward);
                 panel.add(turnnumber);
                 panel.add(speed);
+
+                frame.add(panel);
+                frame.setVisible(true);
+        }
+        public static void main(String[] args){
+                GOLView theview = new GOLView();
         }
         }
 //private class GameBoard() extends JPanel {

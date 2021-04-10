@@ -1,29 +1,33 @@
 
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class GOLView {
+        private GOLModel model;
+        JFrame gameframe;
+        JPanel buttonpanel;
+        JPanel gamegrid;
+        JPanel mainpanel;
+        JPanel controlpanel;
+        JPanel sliderpanel;
+        JButton startstop;
+        JButton backward;
+        JButton forward;
+        JTextField turnnumber;
+        JSlider speed;
+        JButton[][] gridButton;
+        int boardWidth;
+        int boardLength;
+
+        final int speed_min = 0;
+        final int speed_max = 10;
+        final int speed_init = 5;
         public GOLView() {
 // create objects (buttons, textfields, and speed slider
-                JFrame gameframe;
-                JPanel buttonpanel;
-                JPanel gamegrid;
-                JPanel mainpanel;
-                JPanel controlpanel;
-                JPanel sliderpanel;
-                JButton startstop;
-                JButton backward;
-                JButton forward;
-                JTextField turnnumber;
-                JSlider speed;
-
-                final int boardWidth = 10;
-                final int boardLength = 10;
-
-                final int speed_min = 0;
-                final int speed_max = 10;
-                final int speed_init = 5;
-
                 gameframe = new JFrame();
                 gameframe.getContentPane().setLayout(new BorderLayout());
                 gameframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,9 +56,30 @@ public class GOLView {
                 controlpanel.add(buttonpanel);
                 controlpanel.add(sliderpanel);
 
-                // Create game board
+        }
+
+        public void updateBoard(){
+                for (int y = 0; y < boardLength; y++) {
+                        for (int x = 0; x < boardWidth; x++) {
+                                if(this.model.isAlive(x,y)){
+                                        this.gridButton[x][y].setBackground(Color.red);
+                                }
+                                else{
+                                        this.gridButton[x][y].setBackground(Color.white);
+                                }
+                        }
+                }
+        }
+        public static void main(String[] args){
+                GOLView theview = new GOLView();
+        }
+
+        public void registerModel(GOLModel model) {
+                this.model=model;
+                boardWidth=this.model.getSize();
+                boardLength=this.model.getSize();
                 gamegrid = new JPanel();
-                JButton[][] gridButton = new JButton[boardWidth][boardLength];
+                gridButton = new JButton[boardWidth][boardLength];
                 gamegrid.setLayout(new GridLayout(boardWidth, boardLength, 0, 0));
                 for (int y = 0; y < boardLength; y++) {
                         for (int x = 0; x < boardWidth; x++) {
@@ -64,20 +89,19 @@ public class GOLView {
                                 gamegrid.add(gridButton[x][y]);
                         }
                 }
-
-
-                // Add User Buttons and grid
                 mainpanel = new JPanel();
                 mainpanel.setLayout(new BoxLayout(mainpanel, BoxLayout.Y_AXIS));
                 mainpanel.add(gamegrid);
                 mainpanel.add(controlpanel);
                 gameframe.add(mainpanel);
                 gameframe.setVisible(true);
+                this.updateBoard();
         }
-        public static void main(String[] args){
-                GOLView theview = new GOLView();
+
+        public void registerForwardHandler(ActionListener handler){
+                this.forward.addActionListener(handler);
         }
-        }
+}
 //private class GameBoard() extends JPanel {
     //private Dimension d_gameBoardSize = null;
     //private ArrayList<Point> point = new ArrayList<Point>(0);

@@ -29,7 +29,6 @@ public class GOLView {
                 gameframe = new JFrame();
                 gameframe.getContentPane().setLayout(new BorderLayout());
                 gameframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                gameframe.setSize(1000,700);
                 gameframe.setLocationRelativeTo(null);
 
                 // Create actual UI
@@ -102,6 +101,7 @@ public class GOLView {
                 mainpanel.add(controlpanel);
                 gameframe.setTitle("Game Of Life");
                 gameframe.add(mainpanel);
+                gameframe.pack();
                 gameframe.setVisible(true);
                 this.updateBoard();
         }

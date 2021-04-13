@@ -1,14 +1,18 @@
 import java.util.Arrays;
 
+
 public class GOLModel {
 
-    private int counter;
+
+    private int counter=0;
 
     public int sizeGrid;
 
     public int[][] theGrid;
 
+
     public GOLModel(int[][] grid){
+
         this.theGrid=grid;
         this.sizeGrid=grid.length;
     }
@@ -65,9 +69,10 @@ public class GOLModel {
             }
         }
         this.theGrid=next;
+        this.counter+=1;
     }
 
-    boolean isAlive(int x, int y){
+    public boolean isAlive(int x, int y){
         return this.theGrid[x][y]==1;
     }
 
@@ -75,13 +80,34 @@ public class GOLModel {
         return this.sizeGrid;
     }
 
+    void activateCell(int x, int y){
+        this.theGrid[x][y]=1;
+    }
+
+    void deactivateCell(int x, int y){
+        this.theGrid[x][y]=0;
+    }
+
+    public void resetGame(){
+        for (int l = 1; l<this.sizeGrid-1;l++) {
+            for (int m = 1; m < this.sizeGrid - 1; m++) {
+                if(isAlive(l,m)){
+                    deactivateCell(l,m);
+                }
+            }
+        }
+        this.counter=0;
+    }
+
     public int[][] getTheGrid(){
         return this.theGrid;
     }
 
-    public int getSizeGrid(){
-        return this.sizeGrid;
+    public int getTurnCount() {
+        return this.counter;
     }
+
+
 
     public static void main(String[] args){
         int[][] aGridOneCell = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},

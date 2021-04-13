@@ -3,11 +3,10 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class GOLView {
         private GOLModel model;
+        private Timer ticker;
         JFrame gameframe;
         JPanel buttonpanel;
         JPanel gamegrid;
@@ -15,10 +14,9 @@ public class GOLView {
         JPanel controlpanel;
         JPanel sliderpanel;
         JButton startstop;
-        JButton backward;
         JButton forward;
-        JTextField turnnumber;
-        JSlider speed;
+        JButton reset;
+        JLabel timerStart;
         JButton[][] gridButton;
         int boardWidth;
         int boardLength;
@@ -31,15 +29,21 @@ public class GOLView {
                 gameframe = new JFrame();
                 gameframe.getContentPane().setLayout(new BorderLayout());
                 gameframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                gameframe.setSize(700,500);
+                gameframe.setSize(1000,700);
                 gameframe.setLocationRelativeTo(null);
 
                 // Create actual UI
                 startstop = new JButton("Start/Stop");
-                backward = new JButton("Look Back");
-                turnnumber = new JTextField("0");
+                timerStart = new JLabel("Turns: 0");
                 forward = new JButton("Look Forward");
-                speed = new JSlider(JSlider.HORIZONTAL, speed_min, speed_max, speed_init);
+                reset = new JButton("Reset Game");
+
+                this.ticker = new Timer(1000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                        }
+                });
+
 
                 // Add these to a Panel at bottom of page
                 FlowLayout buttonLayout = new FlowLayout();
@@ -49,10 +53,9 @@ public class GOLView {
                 buttonpanel = new JPanel();
                 buttonpanel.setLayout(buttonLayout);
                 buttonpanel.add(startstop);
-                buttonpanel.add(backward);
-                buttonpanel.add(turnnumber);
+                buttonpanel.add(timerStart);
                 buttonpanel.add(forward);
-                sliderpanel.add(speed);
+                buttonpanel.add(reset);
                 controlpanel.add(buttonpanel);
                 controlpanel.add(sliderpanel);
 
@@ -69,6 +72,11 @@ public class GOLView {
                                 }
                         }
                 }
+
+        }
+
+        public void updateTurnCounter(){
+                this.timerStart.setText("Turns: " + this.model.getTurnCount());
         }
         public static void main(String[] args){
                 GOLView theview = new GOLView();
@@ -84,7 +92,6 @@ public class GOLView {
                 for (int y = 0; y < boardLength; y++) {
                         for (int x = 0; x < boardWidth; x++) {
                                 gridButton[x][y] = new JButton(x + ":" + y);
-                                gridButton[x][y].setActionCommand(x + ":" + y);
                                 gridButton[x][y].setText(" ");
                                 gamegrid.add(gridButton[x][y]);
                         }
@@ -93,6 +100,7 @@ public class GOLView {
                 mainpanel.setLayout(new BoxLayout(mainpanel, BoxLayout.Y_AXIS));
                 mainpanel.add(gamegrid);
                 mainpanel.add(controlpanel);
+                gameframe.setTitle("Game Of Life");
                 gameframe.add(mainpanel);
                 gameframe.setVisible(true);
                 this.updateBoard();
@@ -100,6 +108,36 @@ public class GOLView {
 
         public void registerForwardHandler(ActionListener handler){
                 this.forward.addActionListener(handler);
+        }
+
+        public void registerGridHandlers(ActionListener handler) {
+                for (int y = 0; y < boardLength; y++) {
+                        for (int x = 0; x < boardWidth; x++) {
+                                this.gridButton[x][y].addActionListener(handler);
+                                gridButton[x][y].setActionCommand(x + ":" + y);
+                        }
+                }
+        }
+
+        public void registerResetHandler(ActionListener handler) {
+                this.reset.addActionListener(handler);
+        }
+
+        public void registerStopStartHandler(ActionListener handler) {
+                this.startstop.addActionListener(handler);
+        }
+
+        public void registerTimerHandler(ActionListener handler) {
+                this.ticker.addActionListener(handler);
+        }
+
+        public void toggleTimer() {
+                if(this.ticker.isRunning()){
+                        this.ticker.stop();
+                }
+                else{
+                        this.ticker.start();
+                }
         }
 }
 //private class GameBoard() extends JPanel {
